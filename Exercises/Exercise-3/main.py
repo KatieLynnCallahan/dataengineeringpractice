@@ -11,9 +11,9 @@ from warcio.archiveiterator import ArchiveIterator
 
 def download_s3(bucket, filename, new_filename):
     s3 = boto3.client('s3', 
-                      aws_access_key_id='AKIAV33KOVQNCLTXY5MX', 
-                      aws_secret_access_key='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', 
-                      region_name='us-east-1'
+                      aws_access_key_id='', 
+                      aws_secret_access_key='', 
+                      region_name=''
                       )
     s3.download_file(bucket, filename, new_filename)
 
