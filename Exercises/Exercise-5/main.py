@@ -85,18 +85,17 @@ def main():
                 next(reader)
                 for row in reader:
                     if tbl[0] == 'accounts':
-                        cur.execute(
-                            "INSERT INTO accounts VALUES (?,?,?,?,?,?,?,?,?)", (row[0], row[1],row[2], row[3],row[4], row[5],row[6], row[7],row[8]))
+                        cur.execute("INSERT INTO accounts(customer_id, first_name, last_name, address_1, address_2, city, state, zip_code, join_date) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (row[0], row[1],row[2], row[3],row[4], row[5],row[6], row[7],row[8]))
                     elif tbl[0] == 'products':
-                        cur.execute(
-                            "INSERT INTO products VALUES (?,?,?)", (row[0], row[1],row[2]))
+                        cur.execute("INSERT INTO products(product_id, product_code, product_description) VALUES (%s, %s, %s)", (row[0], row[1],row[2]))
                     else:
-                        cur.execute(
-                            "INSERT INTO transactions VALUES (?,?,?,?,?,?,?)", (row[0], row[1],row[2], row[3],row[4], row[5],row[6]))
+                        cur.execute("INSERT INTO transactions(transaction_id, transaction_date, product_id, product_code, product_description, quantity, account_id) VALUES (%s,%s,%s,%s,%s,%s,%s)", (row[0], row[1],row[2], row[3],row[4], row[5],row[6]))
                     conn.commit()
 
-    print(cur.execute("select * from products"))
+    cur.execute("select * from products")
+    print(cur.fetchall())
     cur.close()
+    conn.close()
 
 
 if __name__ == '__main__':
